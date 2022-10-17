@@ -88,7 +88,7 @@ export interface etapaPeriodoDTO {
 export interface formCRUDUsuarioProps {
   editar: boolean | undefined;
   paraAdministrador: boolean;
-  idUsuario: string | undefined; // Solo id de usuario para traer sus claims.
-  idPeriodo?: string | undefined; // Solo id de usuario para traer sus claims.
-  usuarioDatosEdit?: usuarioDTO; // Guardar el objeto de de usuarioDatosDTO.
+  idUsuario: string | undefined;
+  idPeriodo?: string | undefined;
+  usuarioDatosEdit?: usuarioDTO;
 }

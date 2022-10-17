@@ -26,7 +26,6 @@ import { FcGoogle } from 'react-icons/fc';
 import { MdOutlineFacebook } from 'react-icons/md';
 export default function HPLogin() {
   const navigate1 = useNavigate();
-  // const [userName, setuserName] = useState();
   const { claims, actualizarClaims } = useContext(AuntenticationContext);
   async function login(credenciales: creadencialesUsuario) {
     if (valorCaptcha != null) {
@@ -52,30 +51,10 @@ export default function HPLogin() {
     // console.log("Captcha value:", value);
     valorCaptchaState(value);
   }
-  //---------------------------------------------------
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  //---------------------------------------------------
-  //---------- ********************* UTILIZAR ****** obtenerIdPeriodoActivo PARA QUE SE PUEDA REGISTRAR
-  const [periodoActivoID, periodoActivoIDState] = useState<string>();
-  // async function obtenerIdPeriodoActivo() {
-  //   try {
-  //     const respuesta = await axios.get(
-  //       urlobtenerIdPeriodoActivo,
-  //     );
-  //     periodoActivoIDState(respuesta.data);
-  //     console.log(respuesta.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //     return "-1"
-  //   }
-  // }
 
+  //---------------------------------------------------
   //--------
   const guardarCreds = async (data: respuestaAutenticacion) => {
-    console.log(data);
-    console.log("---------");
     guardarTokenLocalStorage(data); // Manterner inicio de sesión
     actualizarClaims(obtenerClaims(), data.names);  // Actualizar los claims para obtener estos nuevos claims.
     navigate1("/homepage/");
@@ -150,7 +129,6 @@ export default function HPLogin() {
                         autoLoad={false}
                         fields="name,email,picture"
                         cssClass="logo bg-primary mt-2 ms-2"
-                        //onClick={componentClicked}
                         callback={responseFacebook}
                         icon={<MdOutlineFacebook className="ms-4 me-3 text-light fs-2"></MdOutlineFacebook>}
                       />
@@ -184,7 +162,7 @@ export default function HPLogin() {
                 <Col>
                   <Button
                     className="text-light bg-transparent border-0"
-                    onClick={handleShow}
+                    // onClick={}
                   >
                     <p className="textFace">¿Has olvidado tu contraseña?</p>
                   </Button>
@@ -196,29 +174,6 @@ export default function HPLogin() {
         }
       </Formik >
       {/* ---------------- */}
-      < Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-        className="light"
-      >
-        <Modal.Header closeButton className="bg-dark text-light">
-          <Modal.Title>Recuperar contraseña</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="bg-dark text-light">
-          <label htmlFor="recuperar">Ingrese el correo de recuperación</label>
-          <input
-            type="email"
-            name="recuperar"
-            className="w-100 mt-3"
-            placeholder="dirección@ejemplo.com"
-          />
-          <Button variant="success" type="submit" className="w-100 mt-5">
-            Enviar
-          </Button>
-        </Modal.Body>
-      </Modal >
     </div >
   );
 }
