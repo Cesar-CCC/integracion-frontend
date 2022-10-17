@@ -1,0 +1,53 @@
+.sgcBackground {
+  background-color: #262a46;
+  min-height: 100vh;
+}
+.sgcBackground2 {
+  background-image: url("../images/imgUNAP.jpg");
+  opacity: 0.9;
+  clip-path: polygon(82% 0, 100% 50%, 84% 100%, 0% 100%, 9% 51%, 0% 0%);
+  background-color: black;
+  min-height: 100vh;
+}
+.sgcForm {
+  background-color: #262a46;
+  box-shadow: 0px 0px 80px #262a46;
+  border-radius: 25px;
+  padding: 10px 50px 20px 50px;
+  text-align: center;
+  font-family: "Noto Sans", sans-serif;
+}
+::placeholder {
+  color: rgb(179, 179, 179);
+}
+/* ------------------ */
+
+/* .logo{
+  background-color: transparent;
+  background-image: url("../images/faceboologo3.png");
+  background-size: cover;
+  width: 40px;
+  height: 40px;
+  border: none;
+} */
+.logo{
+  /* background-color: #fff; */
+  /* background-image: url("../images/test1.png"); */
+  /* background-size: cover; */
+  width: 93%;
+  height: 55px;
+  color: #fff;
+  text-align: left;
+  font-weight: bold;
+  font-size: 16px;
+  /* padding: 10px 0px; */
+  /* letter-spacing: 0.5px; */
+  border-radius: 30px;
+
+}
+.bgface{
+  background-color: #1877F2;
+}
+.textFace{
+  color: #e2e2e2;
+}

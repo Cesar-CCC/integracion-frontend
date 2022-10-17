@@ -1,0 +1,134 @@
+.hpBorder {
+  /* background: rgb(0,0,0);
+    background: radial-gradient(circle, rgba(0,0,0,0.41780462184873945) 99%, rgba(0,0,0,0.23012955182072825) 100%, rgba(0,0,0,1) 100%);
+    border: 2px solid transparent;
+    border-radius: 25px 25px 25px 25px; */
+  /* letter-spacing: 2px; */
+}
+.hpBackground {
+  /* background-image: linear-gradient(
+    to right top,
+    #000101,
+    #000101,
+    #000101,
+    #000101,
+    #000101,
+    #101717,
+    #182627,
+    #203637,
+    #325c5f,
+    #43868b,
+    #55b1b9,
+    #67dfeb
+  ); */
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  background-repeat: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: top;
+  justify-content: top;
+}
+.hpBackgoundLogin {
+  background: rgb(0, 0, 0);
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.41780462184873945) 99%,
+    rgba(0, 0, 0, 0.23012955182072825) 100%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  border: 2px solid #3d3d3d;
+  border-radius: 25px;
+  /* color: #d9d9d9; */
+  padding: 10px 50px 20px 50px;
+  text-align: center;
+}
+
+.hpButton {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  padding: 10px 20px;
+  transition: 0.3s;
+  /* margin-top: 20px; */
+  font-size: 22px;
+  letter-spacing: 3px;
+  background-color: transparent;
+  /* color: rgb(172, 172, 172); */
+  color: rgb(255, 255, 255);
+  border: 2px solid #60608f;
+  border-radius: 25px;
+  /* margin-top: 10%; */
+}
+
+.hpButton:hover {
+  border-radius: 1px;
+  color: rgb(215, 215, 215);
+  border: 2px solid #8a8ad1;
+  /* background-color: #fff; */
+  /* box-shadow: 0 0 20px #4caf50; */
+}
+
+/* --------------- */
+h3 {
+  text-align: center;
+  color: rgb(206, 206, 206);
+  letter-spacing: 2px;
+}
+.hpForm {
+  /* background: rgb(0, 0, 0);
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.41780462184873945) 99%,
+    rgba(0, 0, 0, 0.23012955182072825) 100%,
+    rgba(0, 0, 0, 1) 100%
+  ); */
+  background-color: #2e2e49;
+  border: 2px solid transparent;
+  border-radius: 25px 25px 25px 25px;
+  position: relative;
+  width: 100%;
+}
+
+/*  IMPORTANT: bootstrap 5 y css aveces no funcionan bien juntos, bien usuar uno u otro
+    Bootstrap:
+    " bg-transparent shadow-none border-0 border-bottom text-light fs-4 border-warning form-control"
+*/
+.hpField {
+  position: relative;
+  width: 100%;
+  padding: 10px 0px 10px 0px;
+  background-color: transparent;
+  color: #c7c7c7;
+  border: none;
+  border-bottom: 2px solid #3b3b3b;
+  /* box-shadow: 0 0 5px transparent; */
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+.hpField:focus {
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+.hpFormGroup {
+  width: 100%;
+  position: relative;
+}
+.hpField ~ .hpfocusBorder {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 5px;
+  background-color: #8a8ad1;
+  transition: 0.4s;
+}
+.hpField:focus ~ .hpfocusBorder {
+  width: 100%;
+  transition: 0.4s;
+}
+.hpField:valid {
+  border-bottom: 5px solid #3b3b3b;
+}
