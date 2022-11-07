@@ -12,15 +12,16 @@ import HomePageLogin from "./pages/homePage/homePageLogin";
 configIntercep();
 function App() {
   const [claims, setClaims] = useState<claim[]>([]);
-  const [names, setNames] = useState<string | null>('');
-  function actualizarClaims(claims: claim[], names: string) {
+  const [names, setNames] = useState<string | null | undefined>('');
+  function actualizarClaims(claims: claim[], names: string | null | undefined) {
     setClaims(claims);
-    setNames(names);
+    setNames(names!);
   }
   // Obteneer claims cada vez que carguemos la pagina.
   useEffect(() => {
     setClaims(obtenerClaims());
     setNames(obtenerNames());
+    console.log("names");
   }, []);
   return (
     <div>

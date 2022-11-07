@@ -12,6 +12,13 @@ export interface regisFace {
   email: string;
   names: string;
 }
+export interface nCompletoFace {
+  nombres?: string;
+  apPaterno?: string;
+  apMaterno?: string;
+}
+
+
 export interface usuarioDTO {
   id: string;
   nombres: string;

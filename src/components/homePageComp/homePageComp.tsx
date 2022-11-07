@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import HPContenido from "./hpContenido";
+// import HPContenido from "./hpContenido";
 import HPLogo from "./hpLogo";
 import HPNavbar from "./hpNavbar";
 import "../../styles/sgcStyle_login.css";

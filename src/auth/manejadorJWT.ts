@@ -44,6 +44,15 @@ export function obtenerToken(){
   return localStorage.getItem(llaveToken);
 }
 
+export function obtenerExpiracion(){
+  const expiracion = localStorage.getItem(llaveExpiracion)!;
+  return new Date(expiracion);
+}
+
 export function obtenerNames(){
   return localStorage.getItem(names);
+}
+
+export function setNames(soloNombres: string | undefined){
+  localStorage.setItem(names, soloNombres!);
 }

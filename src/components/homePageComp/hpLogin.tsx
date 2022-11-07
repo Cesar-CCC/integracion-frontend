@@ -65,8 +65,9 @@ export default function HPLogin() {
       email: response.email,
       names: response.name
     }
+    console.log(response);
     try {
-      //---------
+      // ---------
       // Registrar cuenta en bd
       const respuesta = await axios.post(
         urlregistrarCuenta,
@@ -75,7 +76,7 @@ export default function HPLogin() {
       // guardar token de inicio de sesión
       guardarCreds(respuesta.data);
     } catch {
-      //---
+      // ---
       // Iniciar sesión
       const respuesta = await axios.get(
         urllogin,
@@ -92,7 +93,9 @@ export default function HPLogin() {
           email: "",
           password: "",
         }}
-        onSubmit={async (valores) => await login(valores)}
+        onSubmit={ (valores) =>{
+          // await login(valores);
+        } }
       >
         {(formikProps) => (
           <div className="p-5 sgcForm">

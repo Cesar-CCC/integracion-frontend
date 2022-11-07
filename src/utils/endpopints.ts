@@ -1,6 +1,7 @@
 const apiURL = process.env.REACT_APP_API_URL;
 
 export const urlregistrarCuenta = `${apiURL}/cuentas/registrarCuenta`;
+export const urlactualizar = `${apiURL}/cuentas/actualizar`;
 export const urllogin = `${apiURL}/cuentas/login`;
 // export const urllistaUsuariosCuenta = `${apiURL}/cuentas/listaUsuariosCuenta`;
 // export const urllistaUsuariosCuentaDocentes = `${apiURL}/cuentas/listaUsuariosCuentaDocentes`;

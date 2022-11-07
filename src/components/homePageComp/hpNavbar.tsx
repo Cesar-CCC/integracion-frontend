@@ -1,12 +1,14 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { FaUserGraduate } from "react-icons/fa";
 import { IoMdExit } from "react-icons/io";
 import AuntenticationContext from "../../auth/autenticationContext";
 import { logout } from "../../auth/manejadorJWT";
-import  "../../styles/sgcStyle_homepage.css"
-export default function HPNavbar(props: any) {
-  const {names, actualizarClaims: actualizar } = useContext(AuntenticationContext);
+import "../../styles/sgcStyle_homepage.css"
+import { getNombreCompleto } from "../../utils/functions";
+import { nCompletoFace } from "../../utils/interfaces";
+export default function HPNavbar(props: hPNavbarProps) {
+  const { actualizarClaims: actualizar } = useContext(AuntenticationContext);
   return (
     <>
       <Navbar expand="sm" variant="dark" className="sgcNavbar">
@@ -21,7 +23,7 @@ export default function HPNavbar(props: any) {
           </Navbar.Collapse>
           <Navbar.Collapse className="justify-content-end">
             <Nav.Link href="#" className="text-light me-3">
-              Bienvenido {names}
+              Bienvenido {props.nombres}
             </Nav.Link>
             <Nav.Link href="#" className="text-light me-3">
               <FaUserGraduate />
@@ -40,4 +42,7 @@ export default function HPNavbar(props: any) {
       </Navbar>
     </>
   );
+}
+interface hPNavbarProps{
+  nombres?: string;
 }
