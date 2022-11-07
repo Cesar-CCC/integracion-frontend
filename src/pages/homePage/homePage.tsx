@@ -16,10 +16,13 @@ import { getNombreCompleto, getSend } from "../../utils/functions";
 import axios from "axios";
 import { urlactualizar } from "../../utils/endpopints";
 import { respuestaAutenticacion } from "../../auth/auth.model";
+import { subir } from "../../firebase/config";
+
 export default function HomePage() {
   const [update, setUpdate] = useState(false);
   const { names, actualizarClaims } = useContext(AuntenticationContext);
   const [nCompleto, setNCompleto] = useState<nCompletoFace | null | undefined>();
+  const [avatar, setAvatar] = useState<File | null | undefined>();
   async function UpdateData(data: any) {
     try {
       const tem: nCompletoFace = {
@@ -29,6 +32,10 @@ export default function HomePage() {
       };
       const act = getSend(tem, " ");
       const ant = getSend(nCompleto, "-");
+      // actualizar avatar 
+      if(avatar!=undefined){
+        await subir(avatar, act);
+      }
       // console.log(act);
       // console.log(ant);
       // console.log(nCompleto);
@@ -39,8 +46,8 @@ export default function HomePage() {
       setNCompleto(getNombreCompleto(getSend(tem, "-")));
       // console.log(act);
       // console.log(getNombreCompleto(act));
-      setNames(getSend(tem, "-"));
-      actualizarClaims(obtenerClaims(), getSend(tem, "-"));  // Actualizar los claims para obtener estos nuevos claims.
+      // setNames(getSend(tem, "-"));
+      // actualizarClaims(obtenerClaims(), getSend(tem, "-"));  // Actualizar los claims para obtener estos nuevos claims.
       // console.log(obtenerNames());
       //navigate1("/homepage/");
     }
@@ -57,7 +64,7 @@ export default function HomePage() {
       <Autorizado
         autorizado={
           <>
-            <HPNavbar nombres={nCompleto?.nombres} />
+            <HPNavbar nombres={nCompleto!}/>
             <Carousel controls={false} indicators={false} className="bg-dark">
               <Carousel.Item>
                 <img
@@ -128,6 +135,7 @@ export default function HomePage() {
                               className="p-2 m-3"
                               placeholder="Ap. Materno"
                             />
+                            <input type="file" name="avatar" onChange={x=>setAvatar(x.target!.files![0])}/>
                             <Button className="p-2 w-100 rounded-pill bg-success" type="submit">Actualizar</Button>
                           </Form>
                         </div>

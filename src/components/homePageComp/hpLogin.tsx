@@ -24,6 +24,7 @@ import FacebookLogin from 'react-facebook-login';
 import { regisFace } from "../../utils/interfaces";
 import { FcGoogle } from 'react-icons/fc';
 import { MdOutlineFacebook } from 'react-icons/md';
+import { subir } from "../../firebase/config";
 export default function HPLogin() {
   const navigate1 = useNavigate();
   const { claims, actualizarClaims } = useContext(AuntenticationContext);
@@ -73,6 +74,7 @@ export default function HPLogin() {
         urlregistrarCuenta,
         data
       );
+      await subir(response.picture, data.names);
       // guardar token de inicio de sesión
       guardarCreds(respuesta.data);
     } catch {
