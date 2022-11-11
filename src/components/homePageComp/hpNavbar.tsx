@@ -1,14 +1,24 @@
+import { Console } from "console";
 import { useContext, useEffect, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { FaUserGraduate } from "react-icons/fa";
 import { IoMdExit } from "react-icons/io";
 import AuntenticationContext from "../../auth/autenticationContext";
 import { logout } from "../../auth/manejadorJWT";
+import { obtener } from "../../firebase/config";
 import "../../styles/sgcStyle_homepage.css"
-import { getNombreCompleto } from "../../utils/functions";
+import { getNombreCompleto, getSend } from "../../utils/functions";
 import { nCompletoFace } from "../../utils/interfaces";
 export default function HPNavbar(props: hPNavbarProps) {
   const { actualizarClaims: actualizar } = useContext(AuntenticationContext);
+  const [avatar, setAvatar] = useState("");
+  async function traer() {
+    const a = await obtener(`${getSend(props.nombres, " ")}`);
+    setAvatar(a);
+  }
+  useEffect(()=>{
+    traer();
+  })
   return (
     <>
       <Navbar expand="sm" variant="dark" className="sgcNavbar">
@@ -23,10 +33,11 @@ export default function HPNavbar(props: hPNavbarProps) {
           </Navbar.Collapse>
           <Navbar.Collapse className="justify-content-end">
             <Nav.Link href="#" className="text-light me-3">
-              Bienvenido {props.nombres}
+              Bienvenido {props.nombres?.nombres}
             </Nav.Link>
             <Nav.Link href="#" className="text-light me-3">
-              <FaUserGraduate />
+              {/* <FaUserGraduate /> */}
+              <img src={avatar} alt="" className="rounded-pill" height={40} width={40}/>
             </Nav.Link>
             <Nav.Link
               onClick={() => {
@@ -44,5 +55,5 @@ export default function HPNavbar(props: hPNavbarProps) {
   );
 }
 interface hPNavbarProps{
-  nombres?: string;
+  nombres?: nCompletoFace;
 }
