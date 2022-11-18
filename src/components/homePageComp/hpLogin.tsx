@@ -1,5 +1,5 @@
 import { Field, Form, Formik } from "formik";
-import { Button, Col, Container, Modal, Row, Spinner } from "react-bootstrap";
+import { Button, Col, Container, Image, Modal, Row, Spinner } from "react-bootstrap";
 import "../../styles/sgcStyle_login.css";
 import HPButton from "./hpButton";
 import HPInput from "./hpInput";
@@ -17,14 +17,19 @@ import {
 } from "../../auth/manejadorJWT";
 import ReCAPTCHA from "react-google-recaptcha";
 import HPLogo from "./hpLogo";
-import { urllogin, urlobtenerIdPeriodoActivo, urlregistrarCuenta } from "../../utils/endpopints";
+import {
+  urllogin,
+  urlobtenerIdPeriodoActivo,
+  urlregistrarCuenta,
+} from "../../utils/endpopints";
 // import "../../styles/homePage.module.css";
-import FacebookLogin from 'react-facebook-login';
-// import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props' 
+import FacebookLogin from "react-facebook-login";
+// import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import { regisFace } from "../../utils/interfaces";
-import { FcGoogle } from 'react-icons/fc';
-import { MdOutlineFacebook } from 'react-icons/md';
+import { FcGoogle } from "react-icons/fc";
+import { MdOutlineFacebook } from "react-icons/md";
 import { subir } from "../../firebase/config";
+import { getNombreCompleto, getSend } from "../../utils/functions";
 export default function HPLogin() {
   const navigate1 = useNavigate();
   const { claims, actualizarClaims } = useContext(AuntenticationContext);
@@ -36,7 +41,7 @@ export default function HPLogin() {
           credenciales
         );
         guardarTokenLocalStorage(respuesta.data); // Manterner inicio de sesión
-        actualizarClaims(obtenerClaims(), "test");  // Actualizar los claims para obtener estos nuevos claims.
+        actualizarClaims(obtenerClaims(), "test"); // Actualizar los claims para obtener estos nuevos claims.
         // console.log(respuesta.data);
         navigate1("/homepage/");
       } catch (error) {
@@ -57,16 +62,16 @@ export default function HPLogin() {
   //--------
   const guardarCreds = async (data: respuestaAutenticacion) => {
     guardarTokenLocalStorage(data); // Manterner inicio de sesión
-    actualizarClaims(obtenerClaims(), data.names);  // Actualizar los claims para obtener estos nuevos claims.
+    actualizarClaims(obtenerClaims(), data.names); // Actualizar los claims para obtener estos nuevos claims.
     navigate1("/homepage/");
-  }
+  };
   //--
   const responseFacebook = async (response: any) => {
     const data: regisFace = {
       email: response.email,
-      names: response.name
-    }
-    console.log(response);
+      names: response.name,
+    };
+    // console.log(response);
     try {
       // ---------
       // Registrar cuenta en bd
@@ -74,7 +79,15 @@ export default function HPLogin() {
         urlregistrarCuenta,
         data
       );
-      await subir(response.picture, data.names);
+      // obteniendo imagen
+      const url_ = response.picture.data.url;
+      const originalImage=url_;
+      const image = await fetch(originalImage);
+      const imageBlog = await image.blob();
+      // guardando imagen.
+      // console.log(getSend(getNombreCompleto(respuesta.data.names),' '));
+      // console.log(respuesta.data.names);
+      await subir(imageBlog, getSend(getNombreCompleto(respuesta.data.names),' '));
       // guardar token de inicio de sesión
       guardarCreds(respuesta.data);
     } catch {
@@ -95,9 +108,9 @@ export default function HPLogin() {
           email: "",
           password: "",
         }}
-        onSubmit={ (valores) =>{
+        onSubmit={(valores) => {
           // await login(valores);
-        } }
+        }}
       >
         {(formikProps) => (
           <div className="p-5 sgcForm">
@@ -115,15 +128,16 @@ export default function HPLogin() {
                 name="password"
                 placeholder="Ingrese su contraseña"
               />
-              <div className="position-relative">
-              </div>
+              <div className="position-relative"></div>
               <br />
               <div className="mt-4">
                 <Container>
                   <Row className="d-flex justify-content-center mb-3">
                     <Col className="bg-light text-start col-10 rounded-pill d-flex align-items-center">
                       <FcGoogle className="ms-3 fs-4" />
-                      <p className="ms-3 mt-3 fs-6"><strong>Continuar con Facebook</strong></p>
+                      <p className="ms-3 mt-3 fs-6">
+                        <strong>Continuar con Facebook</strong>
+                      </p>
                     </Col>
                   </Row>
                   <Row>
@@ -135,7 +149,9 @@ export default function HPLogin() {
                         fields="name,email,picture"
                         cssClass="logo bg-primary mt-2 ms-2"
                         callback={responseFacebook}
-                        icon={<MdOutlineFacebook className="ms-4 me-3 text-light fs-2"></MdOutlineFacebook>}
+                        icon={
+                          <MdOutlineFacebook className="ms-4 me-3 text-light fs-2"></MdOutlineFacebook>
+                        }
                       />
                     </Col>
                   </Row>
@@ -159,7 +175,7 @@ export default function HPLogin() {
                 <Col md={6}>
                   <Button
                     className="mt-3 bg-transparent border-0"
-                    onClick={() => { }}
+                    onClick={() => {}}
                   >
                     <p className="textFace">Registrarse</p>
                   </Button>
@@ -175,10 +191,9 @@ export default function HPLogin() {
               </Row>
             </div>
           </div>
-        )
-        }
-      </Formik >
+        )}
+      </Formik>
       {/* ---------------- */}
-    </div >
+    </div>
   );
 }
