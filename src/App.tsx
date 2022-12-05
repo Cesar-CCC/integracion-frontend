@@ -9,6 +9,7 @@ import configIntercep from "./auth/interceptores";
 import HomePage from "./pages/homePage/homePage";
 import NotFound from "./routes/notFound";
 import HomePageLogin from "./pages/homePage/homePageLogin";
+import AdministarProductos from "./components/tienda/administarProductos";
 configIntercep();
 function App() {
   const [claims, setClaims] = useState<claim[]>([]);
@@ -38,6 +39,12 @@ function App() {
               path={"/homepage/login"}
               element={
                 <HomePageLogin />
+              }
+            />
+            <Route
+              path={"/admin/producto"}
+              element={
+                <AdministarProductos />
               }
             />
             <Route

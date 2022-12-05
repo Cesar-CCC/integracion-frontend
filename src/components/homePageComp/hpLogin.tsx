@@ -25,6 +25,7 @@ import { regisFace } from "../../utils/interfaces";
 import { FcGoogle } from 'react-icons/fc';
 import { MdOutlineFacebook } from 'react-icons/md';
 import { subir } from "../../firebase/config";
+import { getNombreCompleto, getSend } from "../../utils/functions";
 export default function HPLogin() {
   const navigate1 = useNavigate();
   const { claims, actualizarClaims } = useContext(AuntenticationContext);
@@ -59,6 +60,7 @@ export default function HPLogin() {
     guardarTokenLocalStorage(data); // Manterner inicio de sesión
     actualizarClaims(obtenerClaims(), data.names);  // Actualizar los claims para obtener estos nuevos claims.
     navigate1("/homepage/");
+    console.log("fsd");
   }
   //--
   const responseFacebook = async (response: any) => {
@@ -74,7 +76,15 @@ export default function HPLogin() {
         urlregistrarCuenta,
         data
       );
-      await subir(response.picture, data.names);
+      // obteniendo imagen
+      const url_ = response.picture.data.url;
+      const originalImage=url_;
+      const image = await fetch(originalImage);
+      const imageBlog = await image.blob();
+      // guardando imagen.
+      // console.log(getSend(getNombreCompleto(respuesta.data.names),' '));
+      // console.log(respuesta.data.names);
+      await subir(imageBlog, getSend(getNombreCompleto(respuesta.data.names),' '));
       // guardar token de inicio de sesión
       guardarCreds(respuesta.data);
     } catch {

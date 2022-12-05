@@ -11,15 +11,18 @@ import Autorizado from "../../auth/autorizado";
 import HPLogin from "../../components/homePageComp/hpLogin";
 import { Field, Form, Formik } from "formik";
 import HPInput from "../../components/homePageComp/hpInput";
-import { nCompletoFace } from "../../utils/interfaces";
+import { nCompletoFace, productoGet } from "../../utils/interfaces";
 import { getNombreCompleto, getSend } from "../../utils/functions";
 import axios from "axios";
-import { urlactualizar } from "../../utils/endpopints";
+import { urlactualizar, urlobtenerProductos } from "../../utils/endpopints";
 import { respuestaAutenticacion } from "../../auth/auth.model";
 import { subir } from "../../firebase/config";
+import EditarPerfilComp from "../../components/tienda/editarPerfilComp";
+import ProductoComp from "../../components/tienda/ProductoComp";
+import VerProductoComp from "../../components/tienda/verProductoComp";
 
 export default function HomePage() {
-  const [update, setUpdate] = useState(false);
+  // const [update, setUpdate] = useState(false);
   const { names, actualizarClaims } = useContext(AuntenticationContext);
   const [nCompleto, setNCompleto] = useState<nCompletoFace | null | undefined>();
   const [avatar, setAvatar] = useState<File | null | undefined>();
@@ -33,7 +36,7 @@ export default function HomePage() {
       const act = getSend(tem, " ");
       const ant = getSend(nCompleto, "-");
       // actualizar avatar 
-      if(avatar!=undefined){
+      if (avatar != undefined) {
         await subir(avatar, act);
       }
       // console.log(act);
@@ -55,7 +58,33 @@ export default function HomePage() {
       console.log(err);
     }
   }
+  //-------------------------------
+  //-------------------------------
+  const [ventanaActual, setVentanaActual] = useState('verProductos');
+  const cambiarVentana = (valor: string) => {
+    setVentanaActual(valor);
+  }
+  const cambiarProducto = (valor: productoGet) => {
+    setProducto(valor);
+  }
+  //
+  const [productos, setProductos] = useState<productoGet[]>([]);
+  const [producto, setProducto] = useState<productoGet>();
+  async function obtenerProductos() {
+    try {
+      const res = await axios.get(urlobtenerProductos);
+      console.log(res.data);
+      setProductos(res.data);
+    }
+    catch
+    {
+      console.log("erro get productos");
+    }
+  }
+  //-------------------------------
+  //-------------------------------
   useEffect(() => {
+    obtenerProductos();
     if (obtenerNames() != null)
       setNCompleto(getNombreCompleto(obtenerNames()));
   }, []);
@@ -64,8 +93,8 @@ export default function HomePage() {
       <Autorizado
         autorizado={
           <>
-            <HPNavbar nombres={nCompleto!}/>
-            <Carousel controls={false} indicators={false} className="bg-dark">
+            <HPNavbar nombres={nCompleto!} editFunction={(e: string) => cambiarVentana(e)} />
+            {/* <Carousel controls={false} indicators={false} className="bg-dark">
               <Carousel.Item>
                 <img
                   className="d-block w-100 opacity-50"
@@ -93,58 +122,33 @@ export default function HomePage() {
                   </Container>
                 </Carousel.Caption>
               </Carousel.Item>
-            </Carousel>
+            </Carousel> */}
             <Container className="mt-5 mb-5 text-center d-flex justify-content-center">
-              <Row>
+              <Row className="w-100">
                 <Col className="">
-                  {update ?
-                    <Formik
-                      initialValues={{
-                        names: nCompleto?.nombres,
-                        apPater: nCompleto?.apPaterno,
-                        apMater: nCompleto?.apMaterno,
-                      }}
-                      onSubmit={(valores) => {
-                        UpdateData(valores);
-                      }}
-                    >
-                      {(formikProps) => (
-                        <div className="">
-                          {/* <HPLogo /> */}
-                          <Button className="p-2 rounded-pill bg-dark" onClick={() => setUpdate(false)}>Regresar</Button>
-                          <Form>
-                            <br />
-                            <Field
-                              type="text"
-                              autoComplete="off"
-                              name="names"
-                              className="p-2 m-3"
-                              placeholder="Nombres"
-                            />
-                            <Field
-                              type="text"
-                              autoComplete="off"
-                              name="apPater"
-                              className="p-2  m-3"
-                              placeholder="Ap. Paterno"
-                            />
-                            <Field
-                              type="text"
-                              autoComplete="off"
-                              name="apMater"
-                              className="p-2 m-3"
-                              placeholder="Ap. Materno"
-                            />
-                            <input type="file" name="avatar" onChange={x=>setAvatar(x.target!.files![0])}/>
-                            <Button className="p-2 w-100 rounded-pill bg-success" type="submit">Actualizar</Button>
-                          </Form>
-                        </div>
+                  {(() => {
+                    if (ventanaActual == 'editPerfil') {
+                      return (
+                        <EditarPerfilComp nombres={nCompleto!} UpdateData={(e: any) => UpdateData(e)} setAvatar={(e: any) => setAvatar(e)} />
                       )
-                      }
-                    </Formik >
-                    :
-                    <Button className="p-3 rounded-pill bg-dark" onClick={() => setUpdate(true)}>Actualizar datos</Button>
-                  }
+                    } else if (ventanaActual == 'verProducto') {
+                      return (
+                        <VerProductoComp producto={producto} />
+                      )
+                    } else if (ventanaActual == 'verProductos') {
+                      return (
+                        <Container fluid>
+                          <Row>
+                            {productos.map(producto =>
+                              <Col className="col-3" key={producto.id}>
+                                <ProductoComp producto={producto} cambiarProducto={(e: productoGet) => cambiarProducto(e)} cambiarVentana={(e: string) => cambiarVentana(e)} />
+                              </Col>
+                            )}
+                          </Row>
+                        </Container>
+                      )
+                    }
+                  })()}
                 </Col>
               </Row>
             </Container>

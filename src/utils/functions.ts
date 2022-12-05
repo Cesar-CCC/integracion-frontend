@@ -1,6 +1,6 @@
 import { nCompletoFace } from "./interfaces";
 
-export const getNombreCompleto = (nComleto: string | null) => {
+export const getNombreCompleto = (nComleto: string | null | undefined) => {
   const tem = nComleto!.split("-");
   let nc = "";
   for (var i = 0; i < tem.length - 2; i++)
