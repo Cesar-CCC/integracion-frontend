@@ -13,6 +13,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const storage=getStorage(app);
 
+// para imagenes no es nesesario colocar .jpg ...
 export async function subir(file, name){
     const sf = ref(storage, name)
     await uploadBytes(sf, file)
