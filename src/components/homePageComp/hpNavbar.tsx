@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { FaUserGraduate } from "react-icons/fa";
 import { IoMdExit } from "react-icons/io";
+import internal from "stream";
 import AuntenticationContext from "../../auth/autenticationContext";
 import { logout } from "../../auth/manejadorJWT";
 import { obtener } from "../../firebase/config";
@@ -16,35 +17,36 @@ export default function HPNavbar(props: hPNavbarProps) {
     const a = await obtener(`${getSend(props.nombres, " ")}`);
     setAvatar(a);
   }
-  useEffect(()=>{
+  useEffect(() => {
     traer();
   })
   return (
     <>
       <Navbar expand="sm" variant="dark" className="sgcNavbar">
         <Container>
-          <Navbar.Brand href="/">SGC</Navbar.Brand>
+          <Navbar.Brand href="/">Productos</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               {/* <Nav.Link href="#home">Home</Nav.Link>
               <Nav.Link href="#link">Link</Nav.Link> */}
+              {/* <button onClick={() => props.test()}>Aumentar</button> */}
             </Nav>
           </Navbar.Collapse>
           <Navbar.Collapse className="justify-content-end">
-            <Nav.Link href="#" className="text-light me-3">
-              Bienvenido {props.nombres?.nombres}
+            <Nav.Link onClick={()=>props.editFunction('editPerfil')} className="text-light me-3">
+              Bienvenido {getSend(props.nombres, ' ')}
             </Nav.Link>
-            <Nav.Link href="#" className="text-light me-3">
+            <Nav.Link onClick={()=>props.editFunction('editPerfil')} className="text-light me-3">
               {/* <FaUserGraduate /> */}
-              <img src={avatar} alt="" className="rounded-pill" height={40} width={40}/>
+              <img src={avatar} alt="" className="rounded-pill" height={40} width={40} />
             </Nav.Link>
             <Nav.Link
               onClick={() => {
                 logout();
                 actualizar([], '');
               }}
-              className="text-danger"
+              className="text-danger fs-4"
             >
               <IoMdExit />
             </Nav.Link>
@@ -54,6 +56,7 @@ export default function HPNavbar(props: hPNavbarProps) {
     </>
   );
 }
-interface hPNavbarProps{
+interface hPNavbarProps {
   nombres?: nCompletoFace;
+  editFunction(e:string): void;
 }

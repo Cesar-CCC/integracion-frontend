@@ -64,7 +64,8 @@ export default function HPLogin() {
     guardarTokenLocalStorage(data); // Manterner inicio de sesión
     actualizarClaims(obtenerClaims(), data.names); // Actualizar los claims para obtener estos nuevos claims.
     navigate1("/homepage/");
-  };
+    console.log("fsd");
+  }
   //--
   const responseFacebook = async (response: any) => {
     const data: regisFace = {
