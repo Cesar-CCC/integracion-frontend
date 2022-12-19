@@ -1,12 +1,12 @@
 import { initializeApp } from "firebase/app";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 const firebaseConfig = {
-    apiKey: "AIzaSyB0w1jS4TTJspMuz8YgDRr0dlPN3HGG0M4",
-    authDomain: "prubebaloginfacebook.firebaseapp.com",
-    projectId: "prubebaloginfacebook",
-    storageBucket: "prubebaloginfacebook.appspot.com",
-    messagingSenderId: "766464025742",
-    appId: "1:766464025742:web:b1d7129cd7837ddc4c15df"
+    apiKey: "AIzaSyDyDt-GVoNEzuA_YB45a_0ctWO1Sbl6z3w",
+    authDomain: "e-commerce-integracion.firebaseapp.com",
+    projectId: "e-commerce-integracion",
+    storageBucket: "e-commerce-integracion.appspot.com",
+    messagingSenderId: "307884407307",
+    appId: "1:307884407307:web:ff6548f96949786fa7a50e"
 };
 
 // Initialize Firebase
