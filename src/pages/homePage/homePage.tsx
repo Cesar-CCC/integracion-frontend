@@ -94,42 +94,13 @@ export default function HomePage() {
         autorizado={
           <>
             <HPNavbar nombres={nCompleto!} editFunction={(e: string) => cambiarVentana(e)} />
-            {/* <Carousel controls={false} indicators={false} className="bg-dark">
-              <Carousel.Item>
-                <img
-                  className="d-block w-100 opacity-50"
-                  src="https://tramites.unap.edu.pe/images/slide/slide-1.jpg"
-                  alt="First slide"
-                />
-                <Carousel.Caption>
-                  <Container>
-                    <Row>
-                      <Col className="text-center">
-                        <img
-                          src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Logo_UNAP.png"
-                          className="mb-4"
-                          alt="unap"
-                          width={90}
-                          height={90}
-                        />
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col className="text-center h5">
-                        <p>Universidad Nacional Del Altiplano</p>
-                      </Col>
-                    </Row>
-                  </Container>
-                </Carousel.Caption>
-              </Carousel.Item>
-            </Carousel> */}
             <Container className="mt-5 mb-5 text-center d-flex justify-content-center">
               <Row className="w-100">
                 <Col className="">
                   {(() => {
                     if (ventanaActual == 'editPerfil') {
                       return (
-                        <EditarPerfilComp nombres={nCompleto!} UpdateData={(e: any) => UpdateData(e)} setAvatar={(e: any) => setAvatar(e)} />
+                        <EditarPerfilComp nombres={nCompleto!} UpdateData={(e: any) => UpdateData(e)} setAvatar={(e: any) => setAvatar(e)} cambiarVentana={(e: string) => cambiarVentana(e)} />
                       )
                     } else if (ventanaActual == 'verProducto') {
                       return (

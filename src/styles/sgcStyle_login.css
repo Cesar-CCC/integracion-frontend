@@ -3,10 +3,11 @@
   min-height: 100vh;
 }
 .sgcBackground2 {
-  background-image: url("../images/imgUNAP.jpg");
+  /* background-image: url("../images/imgUNAP.jpg"); */
+  /* background-color: rgb(213, 99, 38); */
   opacity: 0.9;
-  clip-path: polygon(82% 0, 100% 50%, 84% 100%, 0% 100%, 9% 51%, 0% 0%);
-  background-color: black;
+  /* clip-path: polygon(82% 0, 100% 50%, 84% 100%, 0% 100%, 9% 51%, 0% 0%); */
+  background-color: rgb(255, 255, 255);
   min-height: 100vh;
 }
 .sgcForm {

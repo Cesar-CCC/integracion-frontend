@@ -6,12 +6,12 @@ export default function ProductoComp(props: productoProps) {
         <>
             <Card style={{ width: '16rem' }} className="p-2">
                 <Card.Img variant="top" src={props.producto.enlaceImagen} height={200} />
-                <Card.Body>
+                <Card.Body className="text-center">
                     <Card.Title>{props.producto.nombre}</Card.Title>
                     <Card.Text>
                         {props.producto.precio}
                     </Card.Text>
-                    <Button variant="success" onClick={() => {
+                    <Button variant="success w-100" onClick={() => {
                         props.cambiarProducto(props.producto);
                         props.cambiarVentana('verProducto');
                     }}>Ver</Button>

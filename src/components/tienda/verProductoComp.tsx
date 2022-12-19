@@ -4,7 +4,7 @@ import { productoGet } from "../../utils/interfaces";
 export default function VerProductoComp(props: verProductoProps) {
     return (
         <>
-            <Container fluid className="w-100 mt-5">
+            <Container fluid className="w-100 mt-5 border p-5">
                 <Row>
                     <Col>
                         <Row className="mb-5">
@@ -31,7 +31,7 @@ export default function VerProductoComp(props: verProductoProps) {
                 </Row>
                 <Row>
                     <Col>
-                    <Button className="mt-5 w-50 btn-danger">Comprar</Button>
+                    <Button className="mt-5 w-25">Comprar</Button>
                     </Col>
                 </Row>
             </Container>
